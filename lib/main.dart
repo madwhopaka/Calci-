@@ -31,7 +31,7 @@ class _IntroState extends State<Intro> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 6),
+        Duration(seconds: 3),
         () => Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => MyApp())));
   }
@@ -55,7 +55,7 @@ class _IntroState extends State<Intro> {
                           fontSize: 50,
                           color: Colors.blueAccent,
                         )))),
-            Container(child:Image(image: AssetImage('images/main.jpg')),),
+            Container(child:Image(image: AssetImage('image/main.jpg')),),
             Padding(
               padding: EdgeInsets.only(top: 20),
               child: Center(
@@ -147,7 +147,7 @@ class _MyAppState extends State<MyApp> {
               child: Text(
                 _exp,
                 style: GoogleFonts.rubik(
-                    textStyle: TextStyle(color: Colors.white, fontSize: 50)),
+                    textStyle: TextStyle(color: Colors.white, fontSize: 40)),
               ),
             ),
             Row(

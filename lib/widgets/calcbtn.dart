@@ -19,7 +19,7 @@ class CalcBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.all(8),
+        margin: EdgeInsets.all(5),
         child: SizedBox(
             height: 60,
             width: 60,
