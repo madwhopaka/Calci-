@@ -1,9 +1,39 @@
 import 'package:flutter/material.dart';
 import './widgets/calcbtn.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:splashscreen/splashscreen.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   runApp(MyApp());
+}
+
+class Start extends StatelessWidget {
+  const Start({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Calci",
+      home: Intro(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class Intro extends StatelessWidget {
+  const Intro({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new SplashScreen(
+      seconds: 3,
+      navigateAfterSeconds: MyApp(),
+      title: Text("Calci"),
+      image: Image(image: AssetImage('images/splash.jpg')),
+      loadingText: Text("Made by : Madhu "),
+    );
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -24,11 +54,18 @@ class _MyAppState extends State<MyApp> {
   }
 
   void clear(String text) {
-    setState(() {
-      if (_exp != '') {
-        _exp = _exp.substring(0, _exp.length - 1);
-      }
-    });
+    if (_exp.length == 1) {
+      setState(() {
+        _exp = '0';
+        _hist = '';
+      });
+    } else {
+      setState(() {
+        if (_exp != '') {
+          _exp = _exp.substring(0, _exp.length - 1);
+        }
+      });
+    }
   }
 
   void numClick(String text) {
@@ -38,10 +75,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   void calculate(String text) {
+    Parser p = Parser();
+    Expression exp = p.parse(_exp);
+    ContextModel cm = ContextModel();
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
     setState(() {
       if (_exp != '') {
         _hist = _exp;
-        _exp = "solved";
+        _exp = eval.toString();
       }
     });
   }
@@ -105,22 +146,22 @@ class _MyAppState extends State<MyApp> {
                 children: <Widget>[
                   CalcBtn(
                       callback: numClick,
-                      text: '1',
+                      text: '7',
                       fillColor: 0000000000,
                       textSize: 24),
                   CalcBtn(
                       callback: numClick,
-                      text: '2',
+                      text: '8',
                       fillColor: 0000000000,
                       textSize: 24),
                   CalcBtn(
                       callback: numClick,
-                      text: '3',
+                      text: '9',
                       fillColor: 0000000000,
                       textSize: 24),
                   CalcBtn(
                       callback: numClick,
-                      text: ' x ',
+                      text: '*',
                       fillColor: 0xFFFFFFFF,
                       textColor: 0xFF65BDAC,
                       textSize: 24)
