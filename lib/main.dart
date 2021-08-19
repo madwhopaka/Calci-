@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import './widgets/calcbtn.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:splashscreen/splashscreen.dart';
+import 'dart:async';
 import 'package:math_expressions/math_expressions.dart';
 
+
 void main() {
-  runApp(MyApp());
+  runApp(Start());
 }
 
 class Start extends StatelessWidget {
-  const Start({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,18 +20,54 @@ class Start extends StatelessWidget {
   }
 }
 
-class Intro extends StatelessWidget {
+class Intro extends StatefulWidget {
   const Intro({Key? key}) : super(key: key);
 
   @override
+  _IntroState createState() => _IntroState();
+}
+
+class _IntroState extends State<Intro> {
+  void initState() {
+    super.initState();
+    Timer(
+        Duration(seconds: 6),
+        () => Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => MyApp())));
+  }
+
+ 
+  @override
   Widget build(BuildContext context) {
-    return new SplashScreen(
-      seconds: 3,
-      navigateAfterSeconds: MyApp(),
-      title: Text("Calci"),
-      image: Image(image: AssetImage('images/splash.jpg')),
-      loadingText: Text("Made by : Madhu "),
-    );
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+            child: Container(
+                child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(30),
+                child: Center(
+                    child: Text("Calci",
+                        style: GoogleFonts.lato(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 50,
+                          color: Colors.blueAccent,
+                        )))),
+            Container(child:Image(image: AssetImage('images/main.jpg')),),
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Center(
+                child: Text(
+                  "Made by Madhu",
+                  style: GoogleFonts.poppins(
+                      color: Colors.black54, fontWeight: FontWeight.bold),
+                ),
+              ),
+            )
+          ],
+        ))));
   }
 }
 
@@ -233,7 +268,7 @@ class _MyAppState extends State<MyApp> {
                       callback: numClick,
                       text: '00',
                       fillColor: 0000000000,
-                      textSize: 24),
+                      textSize: 18),
                   CalcBtn(
                       callback: calculate,
                       text: '=',
